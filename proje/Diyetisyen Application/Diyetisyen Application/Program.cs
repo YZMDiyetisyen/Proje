@@ -12,7 +12,9 @@ namespace Diyetisyen_Application
         static void Main(string[] args)
         {
             User MyUser=girisYap();
+            Console.WriteLine(MyUser.GetType().Name);
             MyUser.BilgiYazdir();
+            
             Console.Read();
         }
         static public User girisYap()
