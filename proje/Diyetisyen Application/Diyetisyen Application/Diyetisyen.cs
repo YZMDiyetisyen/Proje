@@ -11,6 +11,7 @@ namespace Diyetisyen_Application
         private List<Hasta> Hastalar { get; set; }
         public Diyetisyen(string tcNo, string isim, string soyisim) : base(tcNo, isim, soyisim)
         {
+            Hastalar = new List<Hasta>();
         }
         public void HastaAta(Hasta hastam)
         {
