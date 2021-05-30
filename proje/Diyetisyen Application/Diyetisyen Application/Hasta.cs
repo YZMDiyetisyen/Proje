@@ -16,9 +16,9 @@ namespace Diyetisyen_Application
         {
             this.Diyet = diyet;
         }
-        public IDiyet DiyetBilgisi()
+        public string DiyetBilgisi()
         {
-            return Diyet;
+            return Diyet.DiyetBilgi();
         }
     }
 }

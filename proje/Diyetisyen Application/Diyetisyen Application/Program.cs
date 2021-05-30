@@ -13,11 +13,13 @@ namespace Diyetisyen_Application
             Diyetisyen diyetisyen = new Diyetisyen("11111","Sezer","Yıldırım");
             Hasta hasta = new Hasta("2222","Ali","Atay");
 
+            diyetisyen.HastaAta(hasta);
+
             DiyetFactory diyetFactory = new DiyetFactory(); 
-            IDiyet diyet=diyetFactory.CreateDiyetFactory(DiyetTipleri.Akdeniz);
+            IDiyet diyet=diyetFactory.CreateDiyetFactory(DiyetTipleri.GlutenFree);
             diyet.DiyetAta(hasta);
 
-            Console.WriteLine(hasta.DiyetBilgisi().DiyetBilgi());
+            Console.WriteLine(hasta.DiyetBilgisi());
             Console.Read();
         }
     }
