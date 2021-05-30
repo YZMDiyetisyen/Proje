@@ -1,0 +1,7 @@
+C:\Users\Administrator\Desktop\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Diyetisyen Application.exe.config
+C:\Users\Administrator\Desktop\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Diyetisyen Application.exe
+C:\Users\Administrator\Desktop\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Diyetisyen Application.pdb
+C:\Users\Administrator\Desktop\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.exe
+C:\Users\Administrator\Desktop\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.pdb
