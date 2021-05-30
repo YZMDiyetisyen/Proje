@@ -24,7 +24,7 @@ namespace Diyetisyen_Application
         static public void DiyetAtamaIslemi(DiyetTipleri tip,Hasta hastam)
         {
             DiyetFactory diyetFactory = new DiyetFactory();
-            IDiyet diyet = diyetFactory.CreateDiyetFactory(DiyetTipleri.GlutenFree);
+            IDiyet diyet = diyetFactory.CreateDiyetFactory(tip);
             diyet.DiyetAta(hastam);
         }
     }
