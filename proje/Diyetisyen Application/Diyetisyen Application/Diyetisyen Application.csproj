@@ -46,6 +46,7 @@
     <Compile Include="Admin.cs" />
     <Compile Include="Akdeniz.cs" />
     <Compile Include="Application.cs" />
+    <Compile Include="data.cs" />
     <Compile Include="DenizUrunleri.cs" />
     <Compile Include="DiyetFactory.cs" />
     <Compile Include="Diyetisyen.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="IDiyet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="returnValue.cs" />
     <Compile Include="User.cs" />
     <Compile Include="YesillikDunyasi.cs" />
   </ItemGroup>

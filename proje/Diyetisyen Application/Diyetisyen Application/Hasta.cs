@@ -9,7 +9,7 @@ namespace Diyetisyen_Application
     public class Hasta : User
     {
         private IDiyet Diyet { get; set; }
-        public Hasta(string tcNo, string isim, string soyisim) : base(tcNo, isim, soyisim)
+        public Hasta(string tcNo, string isim, string soyisim, string sifre) : base(tcNo, isim, soyisim, sifre)
         {
             Diyet = null;
         }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Diyetisyen_Application
 {
-    class Diyetisyen : User
+    public class Diyetisyen : User
     {
         private List<Hasta> Hastalar { get; set; }
-        public Diyetisyen(string tcNo, string isim, string soyisim) : base(tcNo, isim, soyisim)
+        public Diyetisyen(string tcNo, string isim, string soyisim, string sifre) : base(tcNo, isim, soyisim, sifre)
         {
             Hastalar = new List<Hasta>();
         }

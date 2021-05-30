@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Diyetisyen_Application
 {
-    class Admin : User
+    public class Admin : User
     {
-        public Admin(string tcNo, string isim, string soyisim) : base(tcNo,isim,soyisim)
+        public Admin(string tcNo, string isim, string soyisim,string sifre) : base(tcNo,isim,soyisim,sifre)
         {
         }
     }
