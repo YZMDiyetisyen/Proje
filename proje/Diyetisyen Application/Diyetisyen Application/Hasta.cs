@@ -11,6 +11,7 @@ namespace Diyetisyen_Application
         private IDiyet Diyet { get; set; }
         public Hasta(string tcNo, string isim, string soyisim) : base(tcNo, isim, soyisim)
         {
+            Diyet = null;
         }
         public void DiyetYaz(IDiyet diyet)
         {

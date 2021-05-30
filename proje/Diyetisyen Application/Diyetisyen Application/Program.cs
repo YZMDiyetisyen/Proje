@@ -15,7 +15,11 @@ namespace Diyetisyen_Application
 
             diyetisyen.HastaAta(hasta);
 
-            DiyetAtamaIslemi(DiyetTipleri.DenizUrunleri, hasta);
+            DiyetAtamaIslemi(DiyetTipleri.Akdeniz, hasta);
+            Console.WriteLine(hasta.DiyetBilgisi());
+            DiyetAtamaIslemi(DiyetTipleri.GlutenFree, hasta);
+            Console.WriteLine(hasta.DiyetBilgisi());
+            DiyetAtamaIslemi(DiyetTipleri.YesillikDunyasi, hasta);
 
 
             Console.WriteLine(hasta.DiyetBilgisi());

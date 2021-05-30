@@ -5,3 +5,9 @@
     DenizUrunleri,
     YesillikDunyasi
 }
+public enum Hastaliklar
+{
+    Obez,
+    Colyak,
+    Seker
+}
