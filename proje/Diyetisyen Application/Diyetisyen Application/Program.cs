@@ -29,13 +29,33 @@ namespace Diyetisyen_Application
         }
         static public void kimsiniz()
         {
-            string kimsin;
+            string kimsin, adminKontrol;
             gecerliDegerGir:
             Console.WriteLine("Kim Giris Yapiyor(Admin-A, Diyetisyen-D)");
             kimsin = Console.ReadLine();
             if (kimsin == "A" || kimsin == "a")
             {
-                Console.WriteLine("Yeni Diyetisyen Ekle");
+                gecerliDegerGirAdmin:
+                Console.WriteLine("1-Diyetisyen Ekle\n2-Ust Menu\n3-Cikis");
+                adminKontrol = Console.ReadLine();
+
+                if (adminKontrol == "1")
+                {
+                    diyetisyenEkle();
+                }
+                else if(adminKontrol == "2") 
+                {
+                    goto gecerliDegerGir;
+
+                }else if (adminKontrol == "3")
+                {
+                    Environment.Exit(0);
+                }else
+                {
+                    Console.WriteLine("Lutfen Gecerli Bir Deger Giriniz!!!\a\n");
+                    goto gecerliDegerGirAdmin;
+                }
+                
 
             }
             else if (kimsin == "D" || kimsin == "d")
@@ -48,6 +68,19 @@ namespace Diyetisyen_Application
                 Console.WriteLine("Lutfen Gecerli Bir Deger Giriniz!!!\a\n");
                 goto gecerliDegerGir;
             }
+        }
+
+       static public void diyetisyenEkle()
+        {
+            string tcNo, isim, soyisim;
+            Console.WriteLine("Diyetisyenin TC Kimlik Numarasi: ");
+            tcNo = Console.ReadLine();
+            Console.WriteLine("Diyetisyenin Adi: ");
+            isim = Console.ReadLine();
+            Console.WriteLine("Diyetisyenin Soyadi: ");
+            soyisim = Console.ReadLine();
+            Diyetisyen diyetisyen = new Diyetisyen(tcNo, isim, soyisim);
+            Console.WriteLine(diyetisyen.BilgiYazdir());
         }
     }
 
