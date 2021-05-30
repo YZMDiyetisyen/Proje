@@ -19,3 +19,10 @@ E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application
 E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csproj.CoreCompileInputs.cache
 E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.exe
 E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.pdb
+C:\Users\ahmet\Source\Repos\Proje\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Diyetisyen Application.exe.config
+C:\Users\ahmet\Source\Repos\Proje\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Diyetisyen Application.exe
+C:\Users\ahmet\Source\Repos\Proje\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Diyetisyen Application.pdb
+C:\Users\ahmet\Source\Repos\Proje\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csprojAssemblyReference.cache
+C:\Users\ahmet\Source\Repos\Proje\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csproj.CoreCompileInputs.cache
+C:\Users\ahmet\Source\Repos\Proje\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.exe
+C:\Users\ahmet\Source\Repos\Proje\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.pdb
