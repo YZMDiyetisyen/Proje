@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Diyetisyen_Application
 {
-    public class GlutenFree : IDiyet
+    public class Colyak : IHastalik
     {
-        public bool DiyetAta(Hasta hastam)
+        public bool HastalikAta(Hasta hasta)
         {
-            return this.GlutenFreeDiyetiOlustur(hastam);
+            return this.ColyakHastaligiAta(hasta);
         }
-        private bool GlutenFreeDiyetiOlustur(Hasta hastam)
+        private bool ColyakHastaligiAta(Hasta hasta)
         {
-            hastam.DiyetYaz(this);
+            hasta.HastalikAta(this);
             return true;
         }
         public string Bilgi()
         {
-            return "Gluten Free";
+            return "Çölyak Hastalığı";
         }
     }
 }

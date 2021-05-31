@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Diyetisyen_Application
 {
-    public interface IDiyet
+    public interface IHastalik
     {
-        bool DiyetAta(Hasta hasta);
         string Bilgi();
+        bool HastalikAta(Hasta hasta);
     }
 }

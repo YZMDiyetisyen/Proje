@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Diyetisyen_Application
 {
-    class DenizUrunleri : IDiyet
+    public class DenizUrunleri : IDiyet
     {
         public bool DiyetAta(Hasta hastam)
         {
@@ -17,7 +17,7 @@ namespace Diyetisyen_Application
             hastam.DiyetYaz(this);
             return true;
         }
-        public string DiyetBilgi()
+        public string Bilgi()
         {
             return "Deniz Ürünleri";
         }

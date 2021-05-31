@@ -11,15 +11,24 @@ namespace Diyetisyen_Application
 
         static void Main(string[] args)
         {
-            User MyUser=girisYap();
+            User MyUser=girisYap();//kullanici girisi alma
 
             Console.WriteLine(MyUser.GetType().Name);//kullanıcı tipini alma
 
             MyUser.BilgiYazdir();
+            //hasta olduğunu varsayarsak {
+            //Console.WriteLine(((Hasta)MyUser).DiyetBilgisi());// kullanıcı tipine göre işlen yapacağımız şekil , di
+            //SingletonDB.GetInstance.DiyetAtamaIslemi(DiyetTipleri.Akdeniz,(Hasta)MyUser);//giris yapan hastaya diyet atama
+            //Console.WriteLine(((Hasta)MyUser).HastalikBilgisi());
+            // }
 
-            Console.WriteLine(((Hasta)MyUser).DiyetBilgisi());// kullanıcı tipine göre işlen yapacağımız şekil
-            SingletonDB.GetInstance.DiyetAtamaIslemi(DiyetTipleri.Akdeniz,(Hasta)MyUser);
-            Console.WriteLine(((Hasta)MyUser).DiyetBilgisi());
+            ///////////////////////////
+            Console.WriteLine("\nDiyetisyenler");
+            foreach (User item in SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Diyetisyen))
+            {
+                item.BilgiYazdir();
+            }
+
             Console.Read();
         }
         static public User girisYap()
@@ -93,7 +102,7 @@ namespace Diyetisyen_Application
             Console.WriteLine("Diyetisyenin Sifre: ");
             sifre = Console.ReadLine();
             Diyetisyen diyetisyen = new Diyetisyen(tcNo, isim, soyisim,sifre);
-            SingletonDB.GetInstance.AddDiyetisyen(diyetisyen);
+            SingletonDB.GetInstance.AddUser(diyetisyen);
         }
        
     }

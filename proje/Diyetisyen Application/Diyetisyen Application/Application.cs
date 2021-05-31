@@ -11,3 +11,9 @@ public enum Hastaliklar
     Colyak,
     Seker
 }
+public enum kullaniciTipleri
+{
+    Admin,
+    Diyetisyen,
+    Hasta
+}

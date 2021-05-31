@@ -17,7 +17,7 @@ namespace Diyetisyen_Application
             hastam.DiyetYaz(this);
             return true;
         }
-        public string DiyetBilgi()
+        public string Bilgi()
         {
             return "Akdeniz";
         }
