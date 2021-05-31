@@ -13,9 +13,32 @@ namespace Diyetisyen_Application
         {
             Hastalar = new List<Hasta>();
         }
-        public void HastaAta(Hasta hastam)
+        public returnValue HastaAta(Hasta hastam)
         {
-            this.Hastalar.Add(hastam);
+            returnValue temp = new returnValue();
+            try
+            {
+                if (!this.Hastalar.Contains(hastam))
+                {
+                    this.Hastalar.Add(hastam);
+                    temp.message = "Hasta Başarıyla Atandı!";
+                }
+                else
+                {
+                    temp.state = false;
+                    temp.message = "Hasta Zaten Mevcut!";
+                }
+            }
+            catch (Exception e)
+            {
+                temp.state = false;
+                temp.message = e.Message;
+            }
+            return temp;
+        }
+        public Hasta[] HastalarListesi()
+        {
+            return Hastalar.ToArray();
         }
     }
 }

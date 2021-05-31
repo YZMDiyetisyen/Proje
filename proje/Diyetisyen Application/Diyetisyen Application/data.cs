@@ -38,6 +38,9 @@ namespace Diyetisyen_Application
 
 			Kullanicilar.Add(hasta);
 			Kullanicilar.Add(hasta2);
+
+			//diyetisyen.HastaAta(hasta);
+			diyetisyen.HastaAta(hasta2);
 		}
 		public List<User> GetKullanicilar()
         {
@@ -100,5 +103,21 @@ namespace Diyetisyen_Application
             }
 			return temp;
         }
+		public returnValue AddHastaToDiyetisyen(Hasta hasta,Diyetisyen diyetisyen)
+		{
+			returnValue temp = new returnValue(); 
+			try{
+				if (diyetisyen != null&&hasta!=null)
+				{
+					diyetisyen.HastaAta(hasta);
+				}
+			}
+			catch (Exception e)
+			{
+				temp.state = false;
+				temp.message = e.Message;
+			}
+			return temp;
+		}
 	}
 }

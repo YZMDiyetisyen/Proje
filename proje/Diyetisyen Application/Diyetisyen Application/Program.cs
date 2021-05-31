@@ -11,16 +11,18 @@ namespace Diyetisyen_Application
 
         static void Main(string[] args)
         {
+            Diyetisyen diyetisyen = new Diyetisyen("1321321321","sezer","yıldırım","132");
             //kimsiniz();
-            KullaniciListele();
-            HastalikBelirle();
-            Console.WriteLine("Mevcut Hastalık: " + ((Hasta)SingletonDB.GetInstance.GetKullanici("222","123")).HastalikBilgisi());
-            Console.Read();
-               //User MyUser=girisYap();//kullanici girisi alma
-
+            KullaniciListele(kullaniciTipleri.Diyetisyen);
+            HastaAta();
+            HastaAta();
+            //Console.WriteLine("Mevcut Hastalık: " + ((Hasta)SingletonDB.GetInstance.GetKullanici("222","123")).HastalikBilgisi());
+            
+             //User MyUser=girisYap();//kullanici girisi alma
             //Console.WriteLine(MyUser.GetType().Name);//kullanıcı tipini alma
 
             //MyUser.BilgiYazdir();
+            Console.Read();
             //hasta olduğunu varsayarsak {
             //Console.WriteLine(((Hasta)MyUser).DiyetBilgisi());// kullanıcı tipine göre işlen yapacağımız şekil , di
             //SingletonDB.GetInstance.DiyetAtamaIslemi(DiyetTipleri.Akdeniz,(Hasta)MyUser);//giris yapan hastaya diyet atama
@@ -28,7 +30,7 @@ namespace Diyetisyen_Application
             // }
 
             ///////////////////////////
-             
+
 
             //Console.Read();
         }
@@ -216,19 +218,53 @@ namespace Diyetisyen_Application
             }
             catch (Exception e)
             {
-                Console.WriteLine("\nDiyet Atama Hatası : \n" + e.Message);
+                Console.WriteLine("\nBaşarısız İşlem : \n" + e.Message);
             }
         }
         static public void HastalikBelirle()
         {
-            int index = Convert.ToInt32(Console.ReadLine()) - 1;
-            Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
-            Console.WriteLine("Mevcut Hastalık: " + hastam.HastalikBilgisi());
-            TipListele();
+            try
+            {
+                int index = Convert.ToInt32(Console.ReadLine()) - 1;
+                Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
+                Console.WriteLine("Mevcut Hastalık: " + hastam.HastalikBilgisi());
+                TipListele();
 
-            Console.Write("Hastalik Seç (No):");
-            index = Convert.ToInt32(Console.ReadLine()) - 1;
-            SingletonDB.GetInstance.HastalikAtamaIslemi((Hastaliklar)(Enum.GetValues(typeof(Hastaliklar)).GetValue(index)), hastam);
+                Console.Write("Hastalik Seç (No):");
+                index = Convert.ToInt32(Console.ReadLine()) - 1;
+                SingletonDB.GetInstance.HastalikAtamaIslemi((Hastaliklar)(Enum.GetValues(typeof(Hastaliklar)).GetValue(index)), hastam);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\nBaşarısız İşlem : \n" + e.Message);
+            }
+        }
+        static public void HastaAta()
+        {
+            try
+            {
+                Console.Write("Diyetisyen Seç (No):");
+                int index = Convert.ToInt32(Console.ReadLine()) - 1;
+                Diyetisyen diyetisyen = (Diyetisyen)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Diyetisyen).ToArray()[index];
+                DiyetisyenHastaLisesi(diyetisyen);
+                KullaniciListele(kullaniciTipleri.Hasta);
+                Console.Write("Hasta Seç (No):");
+                index = Convert.ToInt32(Console.ReadLine()) - 1;
+                Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
+                Console.WriteLine(diyetisyen.HastaAta(hastam).message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\nBaşarısız İşlem : \n" + e.Message);
+            }
+        }
+        static public void DiyetisyenHastaLisesi(Diyetisyen diyetisyen)
+        {
+            Console.WriteLine("Diyetisyen "+diyetisyen.KisiBilgi()[1]+" " + diyetisyen.KisiBilgi()[2]+" Hasta Listesi:");
+            foreach (Hasta item in diyetisyen.HastalarListesi())
+            {
+                item.BilgiYazdir();
+            }
         }
 
     }

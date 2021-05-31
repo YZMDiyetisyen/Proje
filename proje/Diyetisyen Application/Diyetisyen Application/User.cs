@@ -24,6 +24,11 @@ namespace Diyetisyen_Application
         {
             Console.WriteLine( tcNo + " : " + isim + " " + soyisim);
         }
+        public string[] KisiBilgi()
+        {
+            string[] array = { tcNo, isim, soyisim };
+            return array;
+        }
         public bool UserCheck(string tc, string sifre)
         {
             if (this.tcNo == tc && this.sifre == sifre)
