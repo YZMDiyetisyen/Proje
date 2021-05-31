@@ -11,11 +11,12 @@ namespace Diyetisyen_Application
 
         static void Main(string[] args)
         {
-            User MyUser=girisYap();//kullanici girisi alma
+            kimsiniz();
+               //User MyUser=girisYap();//kullanici girisi alma
 
-            Console.WriteLine(MyUser.GetType().Name);//kullanıcı tipini alma
+            //Console.WriteLine(MyUser.GetType().Name);//kullanıcı tipini alma
 
-            MyUser.BilgiYazdir();
+            //MyUser.BilgiYazdir();
             //hasta olduğunu varsayarsak {
             //Console.WriteLine(((Hasta)MyUser).DiyetBilgisi());// kullanıcı tipine göre işlen yapacağımız şekil , di
             //SingletonDB.GetInstance.DiyetAtamaIslemi(DiyetTipleri.Akdeniz,(Hasta)MyUser);//giris yapan hastaya diyet atama
@@ -23,13 +24,9 @@ namespace Diyetisyen_Application
             // }
 
             ///////////////////////////
-            Console.WriteLine("\nDiyetisyenler");
-            foreach (User item in SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Diyetisyen))
-            {
-                item.BilgiYazdir();
-            }
+             
 
-            Console.Read();
+            //Console.Read();
         }
         static public User girisYap()
         {
@@ -42,6 +39,7 @@ namespace Diyetisyen_Application
                 Console.Write("Sifre: ");
                 sifre = Console.ReadLine().ToString();
                 myUser = SingletonDB.GetInstance.GetKullanici(tc, sifre);
+                
             }
             return myUser;
         }
@@ -60,6 +58,7 @@ namespace Diyetisyen_Application
                 if (adminKontrol == "1")
                 {
                     diyetisyenEkle();
+                    goto gecerliDegerGirAdmin;
                 }
                 else if (adminKontrol == "2")
                 {
@@ -80,7 +79,35 @@ namespace Diyetisyen_Application
             }
             else if (kimsin == "D" || kimsin == "d")
             {
-                Console.WriteLine("Sen Diyetisyensin");
+            gecerliDegerGirD:
+                string secim = "";
+                Console.WriteLine("1-Hasta Ekle\n2-Hastalarin Diyetini Degistir\n3-Ust Menu\n4-Cikis");
+                secim = Console.ReadLine();
+
+                if (secim == "1")
+                {
+                    hastaEkle();
+                    goto gecerliDegerGirD;
+                }
+                else if (secim == "2")
+                {
+                    hastaListele();
+                    hastaDiyetDegistir();
+                    goto gecerliDegerGirD;
+                }
+                else if (secim == "3")
+                {
+                    goto gecerliDegerGir;
+                }
+                else if (secim == "4")
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Console.WriteLine("Lutfen Gecerli Bir Deger Giriniz!!!\a\n");
+                    goto gecerliDegerGirD;
+                }
 
             }
             else
@@ -103,8 +130,39 @@ namespace Diyetisyen_Application
             sifre = Console.ReadLine();
             Diyetisyen diyetisyen = new Diyetisyen(tcNo, isim, soyisim,sifre);
             SingletonDB.GetInstance.AddUser(diyetisyen);
+            Console.WriteLine("Diyetisyen Eklendi");
+
         }
-       
+
+        static public void hastaEkle()
+        {
+            string tcNo, isim, soyisim, sifre;
+            Console.WriteLine("Hastanin TC Kimlik Numarasi: ");
+            tcNo = Console.ReadLine();
+            Console.WriteLine("Hastanin Adi: ");
+            isim = Console.ReadLine();
+            Console.WriteLine("Hastanin Soyadi: ");
+            soyisim = Console.ReadLine();
+            Console.WriteLine("Hastanin Sifresi: ");
+            sifre = Console.ReadLine();
+            Hasta hasta = new Hasta(tcNo, isim, soyisim,sifre);
+            SingletonDB.GetInstance.AddUser(hasta);
+            Console.WriteLine("Hasta Eklendi");
+        }
+        static public void hastaListele()
+        {
+            Console.WriteLine("\nHastalar");
+            foreach (User item in SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta))
+            {
+                item.BilgiYazdir();
+            }
+        }
+
+        static public void hastaDiyetDegistir()
+        {
+            
+        }
+
     }
 
 }
