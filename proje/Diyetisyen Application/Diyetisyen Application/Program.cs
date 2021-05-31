@@ -12,9 +12,14 @@ namespace Diyetisyen_Application
         static void Main(string[] args)
         {
             User MyUser=girisYap();
-            Console.WriteLine(MyUser.GetType().Name);
+
+            Console.WriteLine(MyUser.GetType().Name);//kullanıcı tipini alma
+
             MyUser.BilgiYazdir();
-            
+
+            Console.WriteLine(((Hasta)MyUser).DiyetBilgisi());// kullanıcı tipine göre işlen yapacağımız şekil
+            SingletonDB.GetInstance.DiyetAtamaIslemi(DiyetTipleri.Akdeniz,(Hasta)MyUser);
+            Console.WriteLine(((Hasta)MyUser).DiyetBilgisi());
             Console.Read();
         }
         static public User girisYap()
@@ -30,13 +35,6 @@ namespace Diyetisyen_Application
                 myUser = SingletonDB.GetInstance.GetKullanici(tc, sifre);
             }
             return myUser;
-        }
-
-        static public void DiyetAtamaIslemi(DiyetTipleri tip, Hasta hastam)
-        {
-            DiyetFactory diyetFactory = new DiyetFactory();
-            IDiyet diyet = diyetFactory.CreateDiyetFactory(tip);
-            diyet.DiyetAta(hastam);
         }
         static public void kimsiniz()
         {

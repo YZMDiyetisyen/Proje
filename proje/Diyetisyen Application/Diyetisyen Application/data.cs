@@ -26,15 +26,27 @@ namespace Diyetisyen_Application
 			
 			Admin admin = new Admin("123","SezerAdmin","Yıldırım","123");
 			Kullanicilar.Add(admin);
+
 			Diyetisyen diyetisyen = new Diyetisyen("111", "Sezer", "Yıldırım","123");
 			Kullanicilar.Add(diyetisyen);
+
 			Hasta hasta = new Hasta("222", "Ali", "Atay","123");
+			DiyetFactory diyetFactory = new DiyetFactory();
+			IDiyet diyet = diyetFactory.CreateDiyetFactory(DiyetTipleri.GlutenFree);
+			diyet.DiyetAta(hasta);
+
 			Kullanicilar.Add(hasta);
 		}
 		public List<User> GetKullanicilar()
         {
 			return this.Kullanicilar;
         }
+		public void DiyetAtamaIslemi(DiyetTipleri tip, Hasta hastam)
+		{
+			DiyetFactory diyetFactory = new DiyetFactory();
+			IDiyet diyet = diyetFactory.CreateDiyetFactory(tip);
+			diyet.DiyetAta(hastam);
+		}
 
 		public User GetKullanici(string tc,string sifre)
         {
