@@ -11,7 +11,11 @@ namespace Diyetisyen_Application
 
         static void Main(string[] args)
         {
-            kimsiniz();
+            //kimsiniz();
+            KullaniciListele();
+            HastalikBelirle();
+            Console.WriteLine("Mevcut Hastalık: " + ((Hasta)SingletonDB.GetInstance.GetKullanici("222","123")).HastalikBilgisi());
+            Console.Read();
                //User MyUser=girisYap();//kullanici girisi alma
 
             //Console.WriteLine(MyUser.GetType().Name);//kullanıcı tipini alma
@@ -80,6 +84,7 @@ namespace Diyetisyen_Application
             else if (kimsin == "D" || kimsin == "d")
             {
             gecerliDegerGirD:
+                KullaniciListele();
                 string secim = "";
                 Console.WriteLine("1-Hasta Ekle\n2-Hastalarin Diyetini Degistir\n3-Ust Menu\n4-Cikis");
                 secim = Console.ReadLine();
@@ -91,7 +96,6 @@ namespace Diyetisyen_Application
                 }
                 else if (secim == "2")
                 {
-                    hastaListele();
                     hastaDiyetDegistir();
                     goto gecerliDegerGirD;
                 }
@@ -149,18 +153,82 @@ namespace Diyetisyen_Application
             SingletonDB.GetInstance.AddUser(hasta);
             Console.WriteLine("Hasta Eklendi");
         }
-        static public void hastaListele()
+        static public void KullaniciListele(kullaniciTipleri tip=kullaniciTipleri.Hasta)
         {
-            Console.WriteLine("\nHastalar");
-            foreach (User item in SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta))
+            User[] kullaniciListe;
+            switch (tip)
             {
-                item.BilgiYazdir();
+                case kullaniciTipleri.Admin:
+                    Console.WriteLine("\nADMİNLER:");
+                    kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Admin).ToArray();
+                    break;
+                case kullaniciTipleri.Diyetisyen:
+                    Console.WriteLine("\nDİYETİSYENLER:");
+                    kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Diyetisyen).ToArray();
+                    break;
+                case kullaniciTipleri.Hasta:
+                    Console.WriteLine("\nHASTALAR:");
+                    kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray();
+                    break;
+                default:
+                    Console.WriteLine("\nADMİNLER:");
+                    kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Admin).ToArray();
+                    break;
+            }
+            for (int i = 0; i < kullaniciListe.Length; i++)
+            {
+                Console.Write((i+1) + " - ");
+                kullaniciListe[i].BilgiYazdir();
+            }
+        }
+        static public void TipListele(string tip="hastalik")
+        {
+            string[] listeleme;
+            if (tip=="diyet")
+            {
+                Console.WriteLine("\nDİYET TİPLERİ:\n");
+                listeleme = Enum.GetNames(typeof(DiyetTipleri));
+            }
+            else
+            {
+                Console.WriteLine("\nHASTALIK ÇEŞİTLERİ:\n");
+                listeleme = Enum.GetNames(typeof(Hastaliklar));
+            }
+            for (int i = 0; i < listeleme.Length; i++)
+            {
+                Console.WriteLine((i+1).ToString()+" - "+listeleme[i]);
             }
         }
 
         static public void hastaDiyetDegistir()
         {
-            
+            try
+            {
+                Console.Write("Hasta Seç (No):");
+                int index = Convert.ToInt32(Console.ReadLine()) - 1;
+                Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
+                Console.WriteLine("Mevcut Diyet: " + hastam.DiyetBilgisi());
+                TipListele("diyet");
+
+                Console.Write("Diyet Seç (No):");
+                index = Convert.ToInt32(Console.ReadLine()) - 1;
+                SingletonDB.GetInstance.DiyetAtamaIslemi((DiyetTipleri)(Enum.GetValues(typeof(DiyetTipleri)).GetValue(index)), hastam);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\nDiyet Atama Hatası : \n" + e.Message);
+            }
+        }
+        static public void HastalikBelirle()
+        {
+            int index = Convert.ToInt32(Console.ReadLine()) - 1;
+            Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
+            Console.WriteLine("Mevcut Hastalık: " + hastam.HastalikBilgisi());
+            TipListele();
+
+            Console.Write("Hastalik Seç (No):");
+            index = Convert.ToInt32(Console.ReadLine()) - 1;
+            SingletonDB.GetInstance.HastalikAtamaIslemi((Hastaliklar)(Enum.GetValues(typeof(Hastaliklar)).GetValue(index)), hastam);
         }
 
     }

@@ -25,11 +25,11 @@ namespace Diyetisyen_Application
         }
         public string DiyetBilgisi()
         {
-            return Diyet.Bilgi();
+            return (Diyet!=null? Diyet.Bilgi() : "Diyet Ataması Gerçekleşmedi!");
         }
         public string HastalikBilgisi()
         {
-            return Hastalik.Bilgi();
+            return (Hastalik != null ? Hastalik.Bilgi() : "Hastalık Bilgisi Bulunamadı, lütfen bilgi girişini sağlayınız!");
         }
     }
 }
