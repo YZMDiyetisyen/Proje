@@ -8,14 +8,14 @@ namespace Diyetisyen_Application
 {
     public class Obez : IHastalik
     {
-        public bool HastalikAta(Hasta hasta)
+        public returnValue HastalikAta(Hasta hasta)
         {
             return this.ObezHastaligiAta(hasta);
         }
-        private bool ObezHastaligiAta(Hasta hasta)
+        private returnValue ObezHastaligiAta(Hasta hasta)
         {
-            hasta.HastalikAta(this);
-            return true;
+            returnValue temp= hasta.HastalikAta(this);
+            return temp;
         }
         public string Bilgi()
         {

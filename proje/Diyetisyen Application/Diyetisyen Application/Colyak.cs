@@ -8,14 +8,14 @@ namespace Diyetisyen_Application
 {
     public class Colyak : IHastalik
     {
-        public bool HastalikAta(Hasta hasta)
+        public returnValue HastalikAta(Hasta hasta)
         {
             return this.ColyakHastaligiAta(hasta);
         }
-        private bool ColyakHastaligiAta(Hasta hasta)
+        private returnValue ColyakHastaligiAta(Hasta hasta)
         {
-            hasta.HastalikAta(this);
-            return true;
+            returnValue temp = hasta.HastalikAta(this);
+            return temp;
         }
         public string Bilgi()
         {

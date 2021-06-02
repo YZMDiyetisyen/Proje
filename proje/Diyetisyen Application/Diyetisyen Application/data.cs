@@ -59,17 +59,37 @@ namespace Diyetisyen_Application
 			}
 			return users;
 		}
-		public void DiyetAtamaIslemi(DiyetTipleri tip, Hasta hastam)
+		public returnValue DiyetAtamaIslemi(DiyetTipleri tip, Hasta hastam)
 		{
-			DiyetFactory diyetFactory = new DiyetFactory();
-			IDiyet diyet = diyetFactory.CreateDiyetFactory(tip);
-			diyet.DiyetAta(hastam);
+			returnValue temp = new returnValue();
+            try
+			{
+				DiyetFactory diyetFactory = new DiyetFactory();
+				IDiyet diyet = diyetFactory.CreateDiyetFactory(tip);
+				temp=diyet.DiyetAta(hastam);
+			}
+            catch (Exception e)
+            {
+				temp.state = false;
+				temp.message = e.Message;
+            }
+			return temp;
 		}
-		public void HastalikAtamaIslemi(Hastaliklar hastalikCesidi, Hasta hastam)
+		public returnValue HastalikAtamaIslemi(Hastaliklar hastalikCesidi, Hasta hastam)
 		{
-			HastalikFactory hastalikFactory = new HastalikFactory();
-			IHastalik hastalik = hastalikFactory.CreateHastalikFactory(hastalikCesidi);
-			hastalik.HastalikAta(hastam);
+			returnValue temp = new returnValue();
+			try
+			{
+				HastalikFactory hastalikFactory = new HastalikFactory();
+				IHastalik hastalik = hastalikFactory.CreateHastalikFactory(hastalikCesidi);
+				temp = hastalik.HastalikAta(hastam);
+			}
+			catch (Exception e)
+			{
+				temp.state = false;
+				temp.message = e.Message;
+			}
+			return temp;
 		}
 
 		public User GetKullanici(string tc,string sifre)

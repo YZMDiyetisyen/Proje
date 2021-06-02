@@ -9,6 +9,6 @@ namespace Diyetisyen_Application
     public interface IHastalik
     {
         string Bilgi();
-        bool HastalikAta(Hasta hasta);
+        returnValue HastalikAta(Hasta hasta);
     }
 }

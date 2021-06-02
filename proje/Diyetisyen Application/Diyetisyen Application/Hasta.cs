@@ -15,13 +15,51 @@ namespace Diyetisyen_Application
             Diyet = null;
             Hastalik = null;
         }
-        public void DiyetYaz(IDiyet diyet)
+        public returnValue DiyetYaz(IDiyet diyet)
         {
-            this.Diyet = diyet;
+            returnValue temp = new returnValue();
+            try
+            {
+                if (diyet!=null)
+                {
+                    this.Diyet = diyet;
+                    temp.message = "Hasta Diyeti Belirlendi!";
+                }
+                else
+                {
+                    temp.state = false;
+                    temp.message = "Diyet Bilgisi Geçersiz/Boş!";
+                }
+            }
+            catch (Exception e)
+            {
+                temp.state = false;
+                temp.message = e.Message;
+            }
+            return temp;
         }
-        public void HastalikAta(IHastalik hastalik)
+        public returnValue HastalikAta(IHastalik hastalik)
         {
-            this.Hastalik = hastalik;
+            returnValue temp = new returnValue();
+            try
+            {
+                if (hastalik != null)
+                {
+                    this.Hastalik = hastalik;
+                    temp.message = "Hastalık Bilgisi Belirlendi!";
+                }
+                else
+                {
+                    temp.state = false;
+                    temp.message = "Hastalık Bilgisi Geçersiz/Boş!";
+                }
+            }
+            catch (Exception e)
+            {
+                temp.state = false;
+                temp.message = e.Message;
+            }
+            return temp;
         }
         public string DiyetBilgisi()
         {

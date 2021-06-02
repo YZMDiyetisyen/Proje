@@ -8,14 +8,14 @@ namespace Diyetisyen_Application
 {
     public class GlutenFree : IDiyet
     {
-        public bool DiyetAta(Hasta hastam)
+        public returnValue DiyetAta(Hasta hastam)
         {
             return this.GlutenFreeDiyetiOlustur(hastam);
         }
-        private bool GlutenFreeDiyetiOlustur(Hasta hastam)
+        private returnValue GlutenFreeDiyetiOlustur(Hasta hastam)
         {
-            hastam.DiyetYaz(this);
-            return true;
+            returnValue temp = hastam.DiyetYaz(this);
+            return temp;
         }
         public string Bilgi()
         {

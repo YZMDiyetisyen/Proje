@@ -8,7 +8,7 @@ namespace Diyetisyen_Application
 {
     public interface IDiyet
     {
-        bool DiyetAta(Hasta hasta);
+        returnValue DiyetAta(Hasta hasta);
         string Bilgi();
     }
 }

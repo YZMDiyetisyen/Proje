@@ -8,14 +8,14 @@ namespace Diyetisyen_Application
 {
     public class Akdeniz: IDiyet
     {
-        public bool DiyetAta(Hasta hastam)
+        public returnValue DiyetAta(Hasta hastam)
         {
             return this.AkdenizDiyetiOlustur(hastam);
         }
-        private bool AkdenizDiyetiOlustur(Hasta hastam)
+        private returnValue AkdenizDiyetiOlustur(Hasta hastam)
         {
-            hastam.DiyetYaz(this);
-            return true;
+            returnValue temp= hastam.DiyetYaz(this);
+            return temp;
         }
         public string Bilgi()
         {
