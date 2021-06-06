@@ -8,14 +8,14 @@ namespace Diyetisyen_Application
 {
     public class Seker:IHastalik
     {
-        public returnValue HastalikAta(Hasta hasta)
+        public bool HastalikAta(Hasta hasta)
         {
             return this.SekerHastaligiAta(hasta);
         }
-        private returnValue SekerHastaligiAta(Hasta hasta)
+        private bool SekerHastaligiAta(Hasta hasta)
         {
-            returnValue temp = hasta.HastalikAta(this);
-            return temp;
+            hasta.HastalikAta(this);
+            return true;
         }
         public string Bilgi()
         {

@@ -31,7 +31,7 @@ namespace Diyetisyen_Application
 			Kullanicilar.Add(diyetisyen);
 
 			Hasta hasta = new Hasta("222", "Ali", "Atay","123");
-			Hasta hasta2 = new Hasta("222", "Mahmut", "Atay", "123");
+			Hasta hasta2 = new Hasta("223", "Mahmut", "Atay", "123");
 
 			DiyetAtamaIslemi(DiyetTipleri.GlutenFree, hasta);
 			HastalikAtamaIslemi(Hastaliklar.Colyak,hasta);
@@ -59,37 +59,17 @@ namespace Diyetisyen_Application
 			}
 			return users;
 		}
-		public returnValue DiyetAtamaIslemi(DiyetTipleri tip, Hasta hastam)
+		public void DiyetAtamaIslemi(DiyetTipleri tip, Hasta hastam)
 		{
-			returnValue temp = new returnValue();
-            try
-			{
-				DiyetFactory diyetFactory = new DiyetFactory();
-				IDiyet diyet = diyetFactory.CreateDiyetFactory(tip);
-				temp=diyet.DiyetAta(hastam);
-			}
-            catch (Exception e)
-            {
-				temp.state = false;
-				temp.message = e.Message;
-            }
-			return temp;
+			DiyetFactory diyetFactory = new DiyetFactory();
+			IDiyet diyet = diyetFactory.CreateDiyetFactory(tip);
+			diyet.DiyetAta(hastam);
 		}
-		public returnValue HastalikAtamaIslemi(Hastaliklar hastalikCesidi, Hasta hastam)
+		public void HastalikAtamaIslemi(Hastaliklar hastalikCesidi, Hasta hastam)
 		{
-			returnValue temp = new returnValue();
-			try
-			{
-				HastalikFactory hastalikFactory = new HastalikFactory();
-				IHastalik hastalik = hastalikFactory.CreateHastalikFactory(hastalikCesidi);
-				temp = hastalik.HastalikAta(hastam);
-			}
-			catch (Exception e)
-			{
-				temp.state = false;
-				temp.message = e.Message;
-			}
-			return temp;
+			HastalikFactory hastalikFactory = new HastalikFactory();
+			IHastalik hastalik = hastalikFactory.CreateHastalikFactory(hastalikCesidi);
+			hastalik.HastalikAta(hastam);
 		}
 
 		public User GetKullanici(string tc,string sifre)

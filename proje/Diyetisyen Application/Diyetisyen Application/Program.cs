@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+
 
 namespace Diyetisyen_Application
 {
     class Program
     {
-
+        static User myUser;
         static void Main(string[] args)
         {
             Diyetisyen diyetisyen = new Diyetisyen("1321321321","sezer","yıldırım","132");
             //kimsiniz();
-            KullaniciListele(kullaniciTipleri.Diyetisyen);
-            HastaAta();
-            HastaAta();
+            myUser=girisYap();
+            Raporlama();
             //Console.WriteLine("Mevcut Hastalık: " + ((Hasta)SingletonDB.GetInstance.GetKullanici("222","123")).HastalikBilgisi());
             
              //User MyUser=girisYap();//kullanici girisi alma
@@ -36,10 +37,11 @@ namespace Diyetisyen_Application
         }
         static public User girisYap()
         {
-            string tc="", sifre="";
+            
             User myUser = null;
             while (myUser == null)
             {
+                 string tc = "", sifre = "";
                 Console.Write("TC Kimlik: ");
                 tc = Console.ReadLine().ToString();
                 Console.Write("Sifre: ");
@@ -51,27 +53,33 @@ namespace Diyetisyen_Application
         }
         static public void kimsiniz()
         {
-            string kimsin, adminKontrol;
-        gecerliDegerGir:
-            Console.WriteLine("Kim Giris Yapiyor(Admin-A, Diyetisyen-D)");
-            kimsin = Console.ReadLine();
-            if (kimsin == "A" || kimsin == "a")
+            string  adminKontrol;
+            gecerliDegerGir:
+            Console.WriteLine("Giriş Yapiniz: ");
+            myUser = girisYap();
+            if (myUser.ToString()=="Diyetisyen_Application.Admin")
             {
             gecerliDegerGirAdmin:
-                Console.WriteLine("1-Diyetisyen Ekle\n2-Ust Menu\n3-Cikis");
+                Console.WriteLine("1-Diyetisyen Ekle\n2-Hasta Ata\n3-Ust Menu\n4-Cikis");
                 adminKontrol = Console.ReadLine();
 
                 if (adminKontrol == "1")
                 {
                     diyetisyenEkle();
                     goto gecerliDegerGirAdmin;
+
+                }else if (adminKontrol == "2")
+                {
+                    KullaniciListele(kullaniciTipleri.Diyetisyen);
+                    HastaAta();
+                    goto gecerliDegerGirAdmin;
                 }
-                else if (adminKontrol == "2")
+                else if (adminKontrol == "3")
                 {
                     goto gecerliDegerGir;
 
                 }
-                else if (adminKontrol == "3")
+                else if (adminKontrol == "4")
                 {
                     Environment.Exit(0);
                 }
@@ -80,15 +88,13 @@ namespace Diyetisyen_Application
                     Console.WriteLine("Lutfen Gecerli Bir Deger Giriniz!!!\a\n");
                     goto gecerliDegerGirAdmin;
                 }
-
-
             }
-            else if (kimsin == "D" || kimsin == "d")
+            else if (myUser.ToString() == "Diyetisyen_Application.Diyetisyen")
             {
             gecerliDegerGirD:
                 KullaniciListele();
                 string secim = "";
-                Console.WriteLine("1-Hasta Ekle\n2-Hastalarin Diyetini Degistir\n3-Ust Menu\n4-Cikis");
+                Console.WriteLine("1-Hasta Ekle\n2-Hastalarin Diyetini Degistir\n3-Hasta Raporu\n4-Ust Menu\n5-Cikis");
                 secim = Console.ReadLine();
 
                 if (secim == "1")
@@ -103,9 +109,14 @@ namespace Diyetisyen_Application
                 }
                 else if (secim == "3")
                 {
-                    goto gecerliDegerGir;
+                    Raporlama();
+                    goto gecerliDegerGirD;
                 }
                 else if (secim == "4")
+                {
+                    goto gecerliDegerGir;
+
+                } else if (secim == "5")
                 {
                     Environment.Exit(0);
                 }
@@ -155,7 +166,7 @@ namespace Diyetisyen_Application
             SingletonDB.GetInstance.AddUser(hasta);
             Console.WriteLine("Hasta Eklendi");
         }
-        static public void KullaniciListele(kullaniciTipleri tip=kullaniciTipleri.Hasta)
+        static public User[] KullaniciListele(kullaniciTipleri tip=kullaniciTipleri.Hasta,bool write=true)
         {
             User[] kullaniciListe;
             switch (tip)
@@ -177,11 +188,15 @@ namespace Diyetisyen_Application
                     kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Admin).ToArray();
                     break;
             }
-            for (int i = 0; i < kullaniciListe.Length; i++)
+            if (write)
             {
-                Console.Write((i+1) + " - ");
-                kullaniciListe[i].BilgiYazdir();
+                for (int i = 0; i < kullaniciListe.Length; i++)
+                {
+                    Console.Write((i + 1) + " - ");
+                    kullaniciListe[i].BilgiYazdir();
+                }
             }
+            return kullaniciListe;
         }
         static public void TipListele(string tip="hastalik")
         {
@@ -266,6 +281,29 @@ namespace Diyetisyen_Application
                 item.BilgiYazdir();
             }
         }
+
+        static public void Raporlama()
+        {
+            var json=JsonConvert.SerializeObject(((Diyetisyen)myUser).HastalarListesi().ToArray());
+
+            Console.WriteLine(json);
+            Console.WriteLine("---");
+            //foreach (Hasta item in diyetisyen.HastalarListesi())
+            //{
+            //    string kjson = JsonConvert.SerializeObject(item.KisiBilgi());
+            //    string json = JsonConvert.SerializeObject(item.HastalikBilgisi());
+            //    string djson = JsonConvert.SerializeObject(item.DiyetBilgisi());
+
+            //    System.Console.WriteLine(kjson);
+            //    System.Console.WriteLine(json);
+            //    System.Console.WriteLine(djson);
+
+
+            //}
+
+
+        }
+
 
     }
 

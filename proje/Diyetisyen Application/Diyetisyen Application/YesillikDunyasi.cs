@@ -8,14 +8,14 @@ namespace Diyetisyen_Application
 {
     public class YesillikDunyasi : IDiyet
     {
-        public returnValue DiyetAta(Hasta hastam)
+        public bool DiyetAta(Hasta hastam)
         {
             return this.YesillikDunyasiDiyetiOlustur(hastam);
         }
-        private returnValue YesillikDunyasiDiyetiOlustur(Hasta hastam)
+        private bool YesillikDunyasiDiyetiOlustur(Hasta hastam)
         {
-            returnValue temp = hastam.DiyetYaz(this);
-            return temp;
+            hastam.DiyetYaz(this);
+            return true;
         }
         public string Bilgi()
         {
