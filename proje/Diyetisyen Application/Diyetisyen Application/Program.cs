@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-
 namespace Diyetisyen_Application
 {
     class Program
@@ -284,22 +283,22 @@ namespace Diyetisyen_Application
 
         static public void Raporlama()
         {
-            var json=JsonConvert.SerializeObject(((Diyetisyen)myUser).HastalarListesi().ToArray());
+            List<object> asd = new List<object>();
+            foreach (Hasta item in ((Diyetisyen)myUser).HastalarListesi().ToArray())
+            {
+                var myData = new {
+                    TC = (item.KisiBilgi())[0],
+                    Isim = (item.KisiBilgi())[1],
+                    Soyisim = (item.KisiBilgi())[2],
+                    Diyet = item.DiyetBilgisi(),
+                    Hastalik = item.HastalikBilgisi()
+                };
+                asd.Add(myData);
 
+            }
+            string json = JsonConvert.SerializeObject(asd);
             Console.WriteLine(json);
             Console.WriteLine("---");
-            //foreach (Hasta item in diyetisyen.HastalarListesi())
-            //{
-            //    string kjson = JsonConvert.SerializeObject(item.KisiBilgi());
-            //    string json = JsonConvert.SerializeObject(item.HastalikBilgisi());
-            //    string djson = JsonConvert.SerializeObject(item.DiyetBilgisi());
-
-            //    System.Console.WriteLine(kjson);
-            //    System.Console.WriteLine(json);
-            //    System.Console.WriteLine(djson);
-
-
-            //}
 
 
         }

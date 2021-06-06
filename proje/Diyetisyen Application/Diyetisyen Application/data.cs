@@ -39,7 +39,7 @@ namespace Diyetisyen_Application
 			Kullanicilar.Add(hasta);
 			Kullanicilar.Add(hasta2);
 
-			//diyetisyen.HastaAta(hasta);
+			diyetisyen.HastaAta(hasta);
 			diyetisyen.HastaAta(hasta2);
 		}
 		public List<User> GetKullanicilar()

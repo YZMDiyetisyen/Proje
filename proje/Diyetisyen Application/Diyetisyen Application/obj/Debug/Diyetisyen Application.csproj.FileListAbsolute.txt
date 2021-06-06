@@ -46,3 +46,6 @@ C:\Users\Administrator\Desktop\Diyetisyen Application\Diyetisyen Application\obj
 C:\Users\Administrator\Desktop\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csproj.CopyComplete
 C:\Users\Administrator\Desktop\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.exe
 C:\Users\Administrator\Desktop\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.pdb
+E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Newtonsoft.Json.dll
+E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Newtonsoft.Json.xml
+E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csproj.CopyComplete
