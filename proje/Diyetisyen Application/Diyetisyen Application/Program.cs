@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using static System.IO.StreamWriter;
 
 namespace Diyetisyen_Application
 {
@@ -305,10 +307,30 @@ namespace Diyetisyen_Application
             string json = JsonConvert.SerializeObject(asd);
             Console.WriteLine(json);
             Console.WriteLine("---");
+            dosyayaYaz(json);
 
 
         }
 
+
+         static void dosyayaYaz(string json)
+        {
+            string dosya_yolu = @"D:\rapor.json";
+            //İşlem yapacağımız dosyanın yolunu belirtiyoruz.
+            FileStream fs = new FileStream(dosya_yolu, FileMode.OpenOrCreate, FileAccess.Write);
+            //Bir file stream nesnesi oluşturuyoruz. 1.parametre dosya yolunu,
+            //2.parametre dosya varsa açılacağını yoksa oluşturulacağını belirtir,
+            //3.parametre dosyaya erişimin veri yazmak için olacağını gösterir.
+            StreamWriter sw = new StreamWriter(fs);
+            //Yazma işlemi için bir StreamWriter nesnesi oluşturduk.
+            sw.WriteLine(json);
+            //Dosyaya ekleyeceğimiz iki satırlık yazıyı WriteLine() metodu ile yazacağız.
+            sw.Flush();
+            //Veriyi tampon bölgeden dosyaya aktardık.
+            sw.Close();
+            fs.Close();
+            //İşimiz bitince kullandığımız nesneleri iade ettik.
+        }
 
     }
 
