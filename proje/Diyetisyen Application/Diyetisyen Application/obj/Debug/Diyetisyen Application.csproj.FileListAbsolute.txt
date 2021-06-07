@@ -49,3 +49,13 @@ C:\Users\Administrator\Desktop\Diyetisyen Application\Diyetisyen Application\obj
 E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Newtonsoft.Json.dll
 E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Newtonsoft.Json.xml
 E:\projects\Diyetisyen\proje\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csproj.CopyComplete
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Diyetisyen Application.exe.config
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Diyetisyen Application.exe
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Diyetisyen Application.pdb
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csprojAssemblyReference.cache
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csproj.CoreCompileInputs.cache
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.csproj.CopyComplete
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.exe
+C:\Users\ahmet\source\repos\YZMDiyetisyen0606\proje\Diyetisyen Application\Diyetisyen Application\obj\Debug\Diyetisyen Application.pdb

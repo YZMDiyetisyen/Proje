@@ -14,8 +14,8 @@ namespace Diyetisyen_Application
         {
             Diyetisyen diyetisyen = new Diyetisyen("1321321321","sezer","yıldırım","132");
             //kimsiniz();
-            myUser=girisYap();
-            Raporlama();
+            kimsiniz();
+            
             //Console.WriteLine("Mevcut Hastalık: " + ((Hasta)SingletonDB.GetInstance.GetKullanici("222","123")).HastalikBilgisi());
             
              //User MyUser=girisYap();//kullanici girisi alma
@@ -61,7 +61,6 @@ namespace Diyetisyen_Application
             gecerliDegerGirAdmin:
                 Console.WriteLine("1-Diyetisyen Ekle\n2-Hasta Ata\n3-Ust Menu\n4-Cikis");
                 adminKontrol = Console.ReadLine();
-
                 if (adminKontrol == "1")
                 {
                     diyetisyenEkle();
@@ -283,15 +282,22 @@ namespace Diyetisyen_Application
 
         static public void Raporlama()
         {
+            RaporlamaInfo info = new RaporlamaInfo();
+            
             List<object> asd = new List<object>();
             foreach (Hasta item in ((Diyetisyen)myUser).HastalarListesi().ToArray())
             {
+                info.Tc = item.KisiBilgi()[0];
+                info.Isim = item.KisiBilgi()[1];
+                info.Soyisim = item.KisiBilgi()[2];
+                info.Hastalik=item.HastalikBilgisi();
+                info.Diyet=item.DiyetBilgisi();
                 var myData = new {
-                    TC = (item.KisiBilgi())[0],
-                    Isim = (item.KisiBilgi())[1],
-                    Soyisim = (item.KisiBilgi())[2],
-                    Diyet = item.DiyetBilgisi(),
-                    Hastalik = item.HastalikBilgisi()
+                    TC = info.Tc,
+                    Isim = info.Isim,
+                    Soyisim = info.Soyisim,
+                    Hastalik = info.Hastalik,
+                    Diyet = info.Diyet
                 };
                 asd.Add(myData);
 
