@@ -17,3 +17,8 @@ public enum kullaniciTipleri
     Diyetisyen,
     Hasta
 }
+public enum raporTip
+{
+    Json,
+    HTML
+}

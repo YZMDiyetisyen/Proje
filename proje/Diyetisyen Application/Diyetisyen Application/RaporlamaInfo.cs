@@ -8,9 +8,9 @@ namespace Diyetisyen_Application
 {
     public class RaporlamaInfo
     {
-        public string Tc;
-        public string Isim;
-        public string Soyisim;
+        public string HastaAdi;
+        public string HastaSoyadi;
+        public string HastaTc;
         public string Hastalik;
         public string Diyet;
     }

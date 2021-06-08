@@ -17,17 +17,11 @@ namespace Diyetisyen_Application
         //opsiyonel.
         public string BuildOutput()
         {
-            string output = BuildTc();
-            output += BuildIsim();
-            output += BuildSoyisim();
-            output += BuildHastalik();
-            output += BuildDiyet();
+            string output = BuildHasta();
+            output += (this.GetType().Name.Contains("Json") ? "," : "")+BuildDiyet();
             return output;
         }
-        public abstract string BuildTc();
+        public abstract string BuildHasta();
         public abstract string BuildDiyet();
-        public abstract string BuildIsim();
-        public abstract string BuildSoyisim();
-        public abstract string BuildHastalik();
     }
 }

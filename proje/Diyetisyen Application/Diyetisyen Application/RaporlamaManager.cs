@@ -15,18 +15,14 @@ namespace Diyetisyen_Application
         }
         public string Build()
         {
-            string product = Builder.BuildOutput();
-            return product;
+            return Builder.BuildOutput();
         }
         // opsiyonel
         public string BuildUpsideDown()
         {
-            string product = Builder.BuildTc();
-            product += Builder.BuildIsim();
-            product += Builder.BuildSoyisim();
-            product += Builder.BuildHastalik();
-            product += Builder.BuildDiyet();
-            return product;
+            string output = Builder.BuildDiyet();
+            output += (this.GetType().Name.Contains("Json") ? "," : "") + Builder.BuildHasta();
+            return output;
         }
     }
 }

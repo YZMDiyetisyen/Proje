@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Diyetisyen_Application
 {
@@ -30,8 +32,8 @@ namespace Diyetisyen_Application
 			Diyetisyen diyetisyen = new Diyetisyen("111", "Sezer", "Yıldırım","123");
 			Kullanicilar.Add(diyetisyen);
 
-			Hasta hasta = new Hasta("222", "Ali", "Atay","123");
-			Hasta hasta2 = new Hasta("223", "Mahmut", "Atay", "123");
+			Hasta hasta = new Hasta("222", "Ali", "Atay");
+			Hasta hasta2 = new Hasta("223", "Mahmut", "Atay");
 
 			DiyetAtamaIslemi(DiyetTipleri.GlutenFree, hasta);
 			HastalikAtamaIslemi(Hastaliklar.Colyak,hasta);
@@ -111,6 +113,36 @@ namespace Diyetisyen_Application
 				{
 					diyetisyen.HastaAta(hasta);
 				}
+			}
+			catch (Exception e)
+			{
+				temp.state = false;
+				temp.message = e.Message;
+			}
+			return temp;
+		}
+		public returnValue	RaporOlustur(raporTip tip, string RaporMetni)
+		{
+			returnValue temp = new returnValue();
+			try
+			{
+				string name;
+                switch (tip)
+                {
+                    case raporTip.Json:name = "rapor.json";RaporMetni = "{" + RaporMetni + "}";
+                        break;
+                    case raporTip.HTML:name = "rapor.html";
+                        break;
+                    default:name = "rapor.json"; RaporMetni = "{" + RaporMetni + "}";
+						break;
+                }
+                string dosya_yolu = @"D:\"+name;
+				FileStream fs = new FileStream(dosya_yolu, FileMode.OpenOrCreate, FileAccess.Write);
+				StreamWriter sw = new StreamWriter(fs);
+				sw.WriteLine(RaporMetni);
+				sw.Flush();
+				sw.Close();
+				fs.Close();
 			}
 			catch (Exception e)
 			{

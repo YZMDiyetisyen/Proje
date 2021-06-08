@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using static System.IO.StreamWriter;
 
 namespace Diyetisyen_Application
 {
@@ -14,27 +12,7 @@ namespace Diyetisyen_Application
         static User myUser;
         static void Main(string[] args)
         {
-            Diyetisyen diyetisyen = new Diyetisyen("1321321321","sezer","yıldırım","132");
-            //kimsiniz();
             kimsiniz();
-            
-            //Console.WriteLine("Mevcut Hastalık: " + ((Hasta)SingletonDB.GetInstance.GetKullanici("222","123")).HastalikBilgisi());
-            
-             //User MyUser=girisYap();//kullanici girisi alma
-            //Console.WriteLine(MyUser.GetType().Name);//kullanıcı tipini alma
-
-            //MyUser.BilgiYazdir();
-            Console.Read();
-            //hasta olduğunu varsayarsak {
-            //Console.WriteLine(((Hasta)MyUser).DiyetBilgisi());// kullanıcı tipine göre işlen yapacağımız şekil , di
-            //SingletonDB.GetInstance.DiyetAtamaIslemi(DiyetTipleri.Akdeniz,(Hasta)MyUser);//giris yapan hastaya diyet atama
-            //Console.WriteLine(((Hasta)MyUser).HastalikBilgisi());
-            // }
-
-            ///////////////////////////
-
-
-            //Console.Read();
         }
         static public User girisYap()
         {
@@ -56,76 +34,77 @@ namespace Diyetisyen_Application
         {
             string  adminKontrol;
             gecerliDegerGir:
-            Console.WriteLine("Giriş Yapiniz: ");
+            Console.WriteLine("SİSTEM GİRİŞİ");
             myUser = girisYap();
             if (myUser.ToString()=="Diyetisyen_Application.Admin")
             {
             gecerliDegerGirAdmin:
-                Console.WriteLine("1-Diyetisyen Ekle\n2-Hasta Ata\n3-Ust Menu\n4-Cikis");
+                Console.Write("1-Kullanıcıları Listele\n2-Diyetisyen Ekle\n3-Hasta Ata\n4-Ust Menu\n5-Cikis\nSeçim: ");
                 adminKontrol = Console.ReadLine();
                 if (adminKontrol == "1")
                 {
-                    diyetisyenEkle();
-                    goto gecerliDegerGirAdmin;
-
-                }else if (adminKontrol == "2")
-                {
                     KullaniciListele(kullaniciTipleri.Diyetisyen);
-                    HastaAta();
-                    goto gecerliDegerGirAdmin;
+                    KullaniciListele(kullaniciTipleri.Hasta);
+                }
+                else if (adminKontrol == "2")
+                {
+                    diyetisyenEkle();
                 }
                 else if (adminKontrol == "3")
                 {
-                    goto gecerliDegerGir;
-
+                    KullaniciListele(kullaniciTipleri.Diyetisyen);
+                    HastaAta();
                 }
                 else if (adminKontrol == "4")
+                {
+
+                }
+                else if (adminKontrol == "5")
                 {
                     Environment.Exit(0);
                 }
                 else
                 {
                     Console.WriteLine("Lutfen Gecerli Bir Deger Giriniz!!!\a\n");
-                    goto gecerliDegerGirAdmin;
                 }
+                    goto gecerliDegerGirAdmin;
             }
             else if (myUser.ToString() == "Diyetisyen_Application.Diyetisyen")
             {
             gecerliDegerGirD:
-                KullaniciListele();
                 string secim = "";
-                Console.WriteLine("1-Hasta Ekle\n2-Hastalarin Diyetini Degistir\n3-Hasta Raporu\n4-Ust Menu\n5-Cikis");
+                Console.Write("1-Hastaları Listele\n2-Hasta Ekle \n3-Hastaların Diyetini Değistir\n4-Hasta Raporu\n5-Üst Menu\n6-Çıkış\nSeçim: ");
                 secim = Console.ReadLine();
 
                 if (secim == "1")
                 {
-                    hastaEkle();
-                    goto gecerliDegerGirD;
+                    KullaniciListele();
                 }
                 else if (secim == "2")
                 {
-                    hastaDiyetDegistir();
-                    goto gecerliDegerGirD;
+                    hastaEkle();
                 }
                 else if (secim == "3")
                 {
-                    Raporlama();
-                    goto gecerliDegerGirD;
+                    hastaDiyetDegistir();
                 }
                 else if (secim == "4")
                 {
-                    goto gecerliDegerGir;
+                    KullaniciListele();
+                    Raporlama();
+                }
+                else if (secim == "5")
+                {
 
-                } else if (secim == "5")
+                } else if (secim == "6")
                 {
                     Environment.Exit(0);
                 }
                 else
                 {
                     Console.WriteLine("Lutfen Gecerli Bir Deger Giriniz!!!\a\n");
-                    goto gecerliDegerGirD;
                 }
-
+                goto gecerliDegerGirD;
             }
             else
             {
@@ -154,15 +133,13 @@ namespace Diyetisyen_Application
         static public void hastaEkle()
         {
             string tcNo, isim, soyisim, sifre;
-            Console.WriteLine("Hastanin TC Kimlik Numarasi: ");
+            Console.WriteLine("Hastanın TC Kimlik Numarası: ");
             tcNo = Console.ReadLine();
-            Console.WriteLine("Hastanin Adi: ");
+            Console.WriteLine("Hastanın Adi: ");
             isim = Console.ReadLine();
-            Console.WriteLine("Hastanin Soyadi: ");
+            Console.WriteLine("Hastanın Soyadi: ");
             soyisim = Console.ReadLine();
-            Console.WriteLine("Hastanin Sifresi: ");
-            sifre = Console.ReadLine();
-            Hasta hasta = new Hasta(tcNo, isim, soyisim,sifre);
+            Hasta hasta = new Hasta(tcNo, isim, soyisim);
             SingletonDB.GetInstance.AddUser(hasta);
             Console.WriteLine("Hasta Eklendi");
         }
@@ -206,10 +183,15 @@ namespace Diyetisyen_Application
                 Console.WriteLine("\nDİYET TİPLERİ:\n");
                 listeleme = Enum.GetNames(typeof(DiyetTipleri));
             }
-            else
+            else if(tip=="hastalik")
             {
                 Console.WriteLine("\nHASTALIK ÇEŞİTLERİ:\n");
                 listeleme = Enum.GetNames(typeof(Hastaliklar));
+            }
+            else
+            {
+                Console.WriteLine("\nHASTALIK ÇEŞİTLERİ:\n");
+                listeleme = Enum.GetNames(typeof(raporTip));
             }
             for (int i = 0; i < listeleme.Length; i++)
             {
@@ -284,53 +266,58 @@ namespace Diyetisyen_Application
 
         static public void Raporlama()
         {
-            RaporlamaInfo info = new RaporlamaInfo();
-            
-            List<object> asd = new List<object>();
-            foreach (Hasta item in ((Diyetisyen)myUser).HastalarListesi().ToArray())
+            try
             {
-                info.Tc = item.KisiBilgi()[0];
-                info.Isim = item.KisiBilgi()[1];
-                info.Soyisim = item.KisiBilgi()[2];
-                info.Hastalik=item.HastalikBilgisi();
-                info.Diyet=item.DiyetBilgisi();
-                var myData = new {
-                    TC = info.Tc,
-                    Isim = info.Isim,
-                    Soyisim = info.Soyisim,
-                    Hastalik = info.Hastalik,
-                    Diyet = info.Diyet
-                };
-                asd.Add(myData);
+                Console.Write("Hasta Seç (No):");
+                int index = Convert.ToInt32(Console.ReadLine()) - 1;
+                Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
+                TipListele("rapor");
 
+                Console.Write("Rapor Tipi Seç (No):");
+                index = Convert.ToInt32(Console.ReadLine()) - 1;
+                raporTip tip = index == 1 ? raporTip.HTML : raporTip.Json;
+
+                RaporlamaInfo info = new RaporlamaInfo();
+                info.HastaTc = hastam.KisiBilgi()[0];
+                info.HastaAdi = hastam.KisiBilgi()[1];
+                info.HastaSoyadi = hastam.KisiBilgi()[2];
+                info.Hastalik = hastam.HastalikBilgisi();
+                info.Diyet = hastam.DiyetBilgisi();
+
+                RaporlamaBuilderBase builder;
+                switch (tip)
+                {
+                    case raporTip.Json:builder= new JsonBasedRaporlamaBuilder(info); 
+                        break;
+                    case raporTip.HTML:
+                        builder = new HTMLBasedRaporlamaBuilder(info);
+                        break;
+                    default:
+                        builder = new JsonBasedRaporlamaBuilder(info);
+                        break;
+                }
+                
+                RaporlamaManager raporlamaManager = new RaporlamaManager(builder);
+                string str = raporlamaManager.Build();
+                Console.WriteLine(str+"\n");
+                returnValue temp= SingletonDB.GetInstance.RaporOlustur(tip,str);
+                if (!temp.state)
+                {
+                    Console.WriteLine("\nBaşarısız İşlem : \n" + temp.message);
+                }
+                else
+                {
+                    Console.WriteLine("\nRapor Dosyası Oluşturuldu (D:/rapor) \n");
+                }
             }
-            string json = JsonConvert.SerializeObject(asd);
-            Console.WriteLine(json);
-            Console.WriteLine("---");
-            dosyayaYaz(json);
-
+            catch (Exception e)
+            {
+                Console.WriteLine("\nBaşarısız İşlem : \n" + e.Message);
+            }
 
         }
 
 
-         static void dosyayaYaz(string json)
-        {
-            string dosya_yolu = @"D:\rapor.json";
-            //İşlem yapacağımız dosyanın yolunu belirtiyoruz.
-            FileStream fs = new FileStream(dosya_yolu, FileMode.OpenOrCreate, FileAccess.Write);
-            //Bir file stream nesnesi oluşturuyoruz. 1.parametre dosya yolunu,
-            //2.parametre dosya varsa açılacağını yoksa oluşturulacağını belirtir,
-            //3.parametre dosyaya erişimin veri yazmak için olacağını gösterir.
-            StreamWriter sw = new StreamWriter(fs);
-            //Yazma işlemi için bir StreamWriter nesnesi oluşturduk.
-            sw.WriteLine(json);
-            //Dosyaya ekleyeceğimiz iki satırlık yazıyı WriteLine() metodu ile yazacağız.
-            sw.Flush();
-            //Veriyi tampon bölgeden dosyaya aktardık.
-            sw.Close();
-            fs.Close();
-            //İşimiz bitince kullandığımız nesneleri iade ettik.
-        }
 
     }
 

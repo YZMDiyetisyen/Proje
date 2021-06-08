@@ -10,7 +10,7 @@ namespace Diyetisyen_Application
     {
         private IDiyet Diyet { get; set; }
         private IHastalik Hastalik { get; set; }
-        public Hasta(string tcNo, string isim, string soyisim, string sifre) : base(tcNo, isim, soyisim, sifre)
+        public Hasta(string tcNo, string isim, string soyisim) : base(tcNo, isim, soyisim, null)
         {
             Diyet = null;
             Hastalik = null;
@@ -29,7 +29,7 @@ namespace Diyetisyen_Application
         }
         public string HastalikBilgisi()
         {
-            return (Hastalik != null ? Hastalik.Bilgi() : "Hastalık Bilgisi Bulunamadı, lütfen bilgi girişini sağlayınız!");
+            return (Hastalik != null ? Hastalik.Bilgi() : "Hastalık Ataması Gerçekleşmedi!");
         }
     }
 }

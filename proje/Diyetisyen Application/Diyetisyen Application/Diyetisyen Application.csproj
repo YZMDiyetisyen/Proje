@@ -57,6 +57,7 @@
     <Compile Include="GlutenFree.cs" />
     <Compile Include="Hasta.cs" />
     <Compile Include="HastalikFactory.cs" />
+    <Compile Include="HTMLBasedRaporlamaBuilder.cs" />
     <Compile Include="IDiyet.cs" />
     <Compile Include="IHastalik.cs" />
     <Compile Include="JsonBasedRaporlamaBuilder.cs" />

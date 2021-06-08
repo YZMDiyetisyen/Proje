@@ -10,30 +10,17 @@ namespace Diyetisyen_Application
     {
         public JsonBasedRaporlamaBuilder(RaporlamaInfo raporlamaInfo) : base(raporlamaInfo)
         {
-        }
-        public override string BuildTc()
-        {
-            return string.Format("{}", this.Info.Tc);
-        }
-        public override string BuildIsim()
-        {
-            return string.Format("{}", this.Info.Isim);
-        }
-        public override string BuildSoyisim()
-        {
-            return string.Format("{}", this.Info.Soyisim);
-        }
-        public override string BuildHastalik()
-        {
-            return string.Format("{}", this.Info.Hastalik);
-        }
 
-
+        }
+        public override string BuildHasta()
+        {
+            return "\"Hasta\":{\"TC\":\"" + this.Info.HastaTc + "\",\"İsim\":\"" + this.Info.HastaAdi + "\",\"Soyisim\":\"" + this.Info.HastaSoyadi + "\",\"Hastalık\":\"" + this.Info.Hastalik + "\"}";
+        }
         public override string BuildDiyet()
         {
-            return string.Format("{}", this.Info.Diyet);
+            return "\"Diyet\":\"" + this.Info.Diyet+ "\"";
         }
-       
+
 
 
 
