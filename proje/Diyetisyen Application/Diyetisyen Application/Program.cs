@@ -86,6 +86,7 @@ namespace Diyetisyen_Application
                 }
                 else if (secim == "3")
                 {
+                    KullaniciListele();
                     hastaDiyetDegistir();
                 }
                 else if (secim == "4")
