@@ -133,13 +133,17 @@ namespace Diyetisyen_Application
         static public void hastaEkle()
         {
             string tcNo, isim, soyisim, sifre;
-            Console.WriteLine("Hastanın TC Kimlik Numarası: ");
+            Console.Write("Hastanın TC Kimlik Numarası: ");
             tcNo = Console.ReadLine();
-            Console.WriteLine("Hastanın Adi: ");
+            Console.Write("Hastanın Adı: ");
             isim = Console.ReadLine();
-            Console.WriteLine("Hastanın Soyadi: ");
+            Console.Write("Hastanın Soyadı: ");
             soyisim = Console.ReadLine();
             Hasta hasta = new Hasta(tcNo, isim, soyisim);
+            TipListele();
+            Console.Write("Hastalık Seç (No):");
+            int index = int.Parse(Console.ReadLine())-1;
+            SingletonDB.GetInstance.HastalikAtamaIslemi((Hastaliklar)(Enum.GetValues(typeof(Hastaliklar)).GetValue(index)), hasta);
             SingletonDB.GetInstance.AddUser(hasta);
             Console.WriteLine("Hasta Eklendi");
         }
@@ -227,7 +231,7 @@ namespace Diyetisyen_Application
                 Console.WriteLine("Mevcut Hastalık: " + hastam.HastalikBilgisi());
                 TipListele();
 
-                Console.Write("Hastalik Seç (No):");
+                Console.Write("Hastalık Seç (No):");
                 index = Convert.ToInt32(Console.ReadLine()) - 1;
                 SingletonDB.GetInstance.HastalikAtamaIslemi((Hastaliklar)(Enum.GetValues(typeof(Hastaliklar)).GetValue(index)), hastam);
             }
@@ -328,9 +332,5 @@ namespace Diyetisyen_Application
             }
 
         }
-
-
-
     }
-
 }
