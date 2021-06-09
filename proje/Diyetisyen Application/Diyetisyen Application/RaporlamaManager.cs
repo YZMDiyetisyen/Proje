@@ -21,7 +21,7 @@ namespace Diyetisyen_Application
         public string BuildUpsideDown()
         {
             string output = Builder.BuildDiyet();
-            output += (this.GetType().Name.Contains("Json") ? "," : "") + Builder.BuildHasta();
+            output += (Builder.GetType().Name.Contains("Json") ? "," : "") + Builder.BuildHasta();
             return output;
         }
     }

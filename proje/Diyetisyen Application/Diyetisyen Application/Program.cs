@@ -277,6 +277,9 @@ namespace Diyetisyen_Application
                 index = Convert.ToInt32(Console.ReadLine()) - 1;
                 raporTip tip = index == 1 ? raporTip.HTML : raporTip.Json;
 
+
+                Console.Write("Format Seç (1/2):");
+                index = Convert.ToInt32(Console.ReadLine());
                 RaporlamaInfo info = new RaporlamaInfo();
                 info.HastaTc = hastam.KisiBilgi()[0];
                 info.HastaAdi = hastam.KisiBilgi()[1];
@@ -298,7 +301,16 @@ namespace Diyetisyen_Application
                 }
                 
                 RaporlamaManager raporlamaManager = new RaporlamaManager(builder);
-                string str = raporlamaManager.Build();
+                string str="";
+                if (index==1)
+                {
+                    str= raporlamaManager.Build();
+                }
+                else
+                {
+                    str=raporlamaManager.BuildUpsideDown();
+                }
+                 
                 Console.WriteLine(str+"\n");
                 returnValue temp= SingletonDB.GetInstance.RaporOlustur(tip,str);
                 if (!temp.state)
