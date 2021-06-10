@@ -40,5 +40,9 @@ namespace Diyetisyen_Application
         {
             return Hastalar.ToArray();
         }
+        public void hastaSevk(Hasta hasta)
+        {
+            Hastalar.Remove(hasta);
+        }
     }
 }

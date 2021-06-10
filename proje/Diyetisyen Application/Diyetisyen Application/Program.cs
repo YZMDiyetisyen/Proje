@@ -20,13 +20,20 @@ namespace Diyetisyen_Application
             User myUser = null;
             while (myUser == null)
             {
-                 string tc = "", sifre = "";
+                string tc = "", sifre = "";
                 Console.Write("TC Kimlik: ");
                 tc = Console.ReadLine().ToString();
                 Console.Write("Sifre: ");
                 sifre = Console.ReadLine().ToString();
                 myUser = SingletonDB.GetInstance.GetKullanici(tc, sifre);
-                
+                if (myUser!=null)
+                {
+                    Console.WriteLine("Hoşgeldiniz " + myUser.GetType().Name + " " + myUser.KisiBilgi()[1] + " " + myUser.KisiBilgi()[2]);
+                }
+                else
+                {
+                    Console.WriteLine("Başarısız Giriş!");
+                }
             }
             return myUser;
         }
@@ -57,7 +64,7 @@ namespace Diyetisyen_Application
                 }
                 else if (adminKontrol == "4")
                 {
-
+                    goto gecerliDegerGir;
                 }
                 else if (adminKontrol == "5")
                 {
@@ -73,12 +80,12 @@ namespace Diyetisyen_Application
             {
             gecerliDegerGirD:
                 string secim = "";
-                Console.Write("1-Hastaları Listele\n2-Hasta Ekle \n3-Hastaların Diyetini Değistir\n4-Hasta Raporu\n5-Üst Menu\n6-Çıkış\nSeçim: ");
+                Console.Write("1-Hastaları Listele\n2-Hasta Ekle \n3-Hasta Diyet Belirle\n4-Hastalık Belirle\n5-Hasta Raporu\n6-Üst Menu\n7-Çıkış\nSeçim: ");
                 secim = Console.ReadLine();
 
                 if (secim == "1")
                 {
-                    KullaniciListele();
+                    KullaniciListele(kullaniciTipleri.Hasta,true);
                 }
                 else if (secim == "2")
                 {
@@ -86,18 +93,23 @@ namespace Diyetisyen_Application
                 }
                 else if (secim == "3")
                 {
-                    KullaniciListele();
+                    KullaniciListele(kullaniciTipleri.Hasta, true);
                     hastaDiyetDegistir();
                 }
                 else if (secim == "4")
                 {
-                    KullaniciListele();
-                    Raporlama();
+                    KullaniciListele(kullaniciTipleri.Hasta, true);
+                    HastalikBelirle();
                 }
                 else if (secim == "5")
                 {
-
-                } else if (secim == "6")
+                    KullaniciListele(kullaniciTipleri.Hasta, true);
+                    Raporlama();
+                }
+                else if (secim == "6")
+                {
+                    goto gecerliDegerGir;
+                } else if (secim == "7")
                 {
                     Environment.Exit(0);
                 }
@@ -113,24 +125,22 @@ namespace Diyetisyen_Application
                 goto gecerliDegerGir;
             }
         }
-
         static public void diyetisyenEkle()
         {
             string tcNo, isim, soyisim,sifre;
-            Console.WriteLine("Diyetisyenin TC Kimlik Numarasi: ");
+            Console.Write("Diyetisyenin TC Kimlik Numarası: ");
             tcNo = Console.ReadLine();
-            Console.WriteLine("Diyetisyenin Adi: ");
+            Console.Write("Diyetisyenin Adı: ");
             isim = Console.ReadLine();
-            Console.WriteLine("Diyetisyenin Soyadi: ");
+            Console.Write("Diyetisyenin Soyadı: ");
             soyisim = Console.ReadLine();
-            Console.WriteLine("Diyetisyenin Sifre: ");
+            Console.Write("Diyetisyenin Şifre: ");
             sifre = Console.ReadLine();
             Diyetisyen diyetisyen = new Diyetisyen(tcNo, isim, soyisim,sifre);
             SingletonDB.GetInstance.AddUser(diyetisyen);
             Console.WriteLine("Diyetisyen Eklendi");
 
         }
-
         static public void hastaEkle()
         {
             string tcNo, isim, soyisim, sifre;
@@ -146,37 +156,42 @@ namespace Diyetisyen_Application
             int index = int.Parse(Console.ReadLine())-1;
             SingletonDB.GetInstance.HastalikAtamaIslemi((Hastaliklar)(Enum.GetValues(typeof(Hastaliklar)).GetValue(index)), hasta);
             SingletonDB.GetInstance.AddUser(hasta);
+            SingletonDB.GetInstance.hastaAta((Diyetisyen)myUser,hasta);
             Console.WriteLine("Hasta Eklendi");
         }
-        static public User[] KullaniciListele(kullaniciTipleri tip=kullaniciTipleri.Hasta,bool write=true)
+        static public User[] KullaniciListele(kullaniciTipleri tip=kullaniciTipleri.Hasta,bool diyetisyen=false)
         {
             User[] kullaniciListe;
-            switch (tip)
+            if (diyetisyen)
             {
-                case kullaniciTipleri.Admin:
-                    Console.WriteLine("\nADMİNLER:");
-                    kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Admin).ToArray();
-                    break;
-                case kullaniciTipleri.Diyetisyen:
-                    Console.WriteLine("\nDİYETİSYENLER:");
-                    kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Diyetisyen).ToArray();
-                    break;
-                case kullaniciTipleri.Hasta:
-                    Console.WriteLine("\nHASTALAR:");
-                    kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray();
-                    break;
-                default:
-                    Console.WriteLine("\nADMİNLER:");
-                    kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Admin).ToArray();
-                    break;
+                kullaniciListe = ((Diyetisyen)myUser).HastalarListesi().ToArray();
             }
-            if (write)
+            else
             {
-                for (int i = 0; i < kullaniciListe.Length; i++)
+                switch (tip)
                 {
-                    Console.Write((i + 1) + " - ");
-                    kullaniciListe[i].BilgiYazdir();
+                    case kullaniciTipleri.Admin:
+                        Console.WriteLine("\nADMİNLER:");
+                        kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Admin).ToArray();
+                        break;
+                    case kullaniciTipleri.Diyetisyen:
+                        Console.WriteLine("\nDİYETİSYENLER:");
+                        kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Diyetisyen).ToArray();
+                        break;
+                    case kullaniciTipleri.Hasta:
+                        Console.WriteLine("\nHASTALAR:");
+                        kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray();
+                        break;
+                    default:
+                        Console.WriteLine("\nADMİNLER:");
+                        kullaniciListe = SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Admin).ToArray();
+                        break;
                 }
+            }
+            for (int i = 0; i < kullaniciListe.Length; i++)
+            {
+                Console.Write((i + 1) + " - ");
+                kullaniciListe[i].BilgiYazdir();
             }
             return kullaniciListe;
         }
@@ -203,14 +218,13 @@ namespace Diyetisyen_Application
                 Console.WriteLine((i+1).ToString()+" - "+listeleme[i]);
             }
         }
-
         static public void hastaDiyetDegistir()
         {
             try
             {
                 Console.Write("Hasta Seç (No):");
                 int index = Convert.ToInt32(Console.ReadLine()) - 1;
-                Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
+                Hasta hastam = ((Diyetisyen)myUser).HastalarListesi()[index];
                 Console.WriteLine("Mevcut Diyet: " + hastam.DiyetBilgisi());
                 TipListele("diyet");
 
@@ -228,7 +242,7 @@ namespace Diyetisyen_Application
             try
             {
                 int index = Convert.ToInt32(Console.ReadLine()) - 1;
-                Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
+                Hasta hastam = ((Diyetisyen)myUser).HastalarListesi()[index];
                 Console.WriteLine("Mevcut Hastalık: " + hastam.HastalikBilgisi());
                 TipListele();
 
@@ -253,7 +267,7 @@ namespace Diyetisyen_Application
                 Console.Write("Hasta Seç (No):");
                 index = Convert.ToInt32(Console.ReadLine()) - 1;
                 Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
-                Console.WriteLine(diyetisyen.HastaAta(hastam).message);
+                Console.WriteLine(SingletonDB.GetInstance.hastaAta(diyetisyen,hastam).message);
             }
             catch (Exception e)
             {
@@ -268,14 +282,13 @@ namespace Diyetisyen_Application
                 item.BilgiYazdir();
             }
         }
-
         static public void Raporlama()
         {
             try
             {
                 Console.Write("Hasta Seç (No):");
                 int index = Convert.ToInt32(Console.ReadLine()) - 1;
-                Hasta hastam = (Hasta)SingletonDB.GetInstance.GetKullanicilar(kullaniciTipleri.Hasta).ToArray()[index];
+                Hasta hastam = ((Diyetisyen)myUser).HastalarListesi()[index];
                 TipListele("rapor");
 
                 Console.Write("Rapor Tipi Seç (No):");

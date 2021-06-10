@@ -21,7 +21,6 @@ namespace Diyetisyen_Application
 				return instance;
 			}
 		}
-
 		private SingletonDB()
 		{
 			Kullanicilar = new List<User>();
@@ -73,7 +72,6 @@ namespace Diyetisyen_Application
 			IHastalik hastalik = hastalikFactory.CreateHastalikFactory(hastalikCesidi);
 			hastalik.HastalikAta(hastam);
 		}
-
 		public User GetKullanici(string tc,string sifre)
         {
 			User myUser = null;
@@ -87,7 +85,6 @@ namespace Diyetisyen_Application
             }
 			return myUser;
 		}
-
 		public returnValue AddUser(User kullanici)
         {
 			returnValue temp = new returnValue();
@@ -105,12 +102,20 @@ namespace Diyetisyen_Application
             }
 			return temp;
         }
-		public returnValue AddHastaToDiyetisyen(Hasta hasta,Diyetisyen diyetisyen)
+		public returnValue hastaAta(Diyetisyen diyetisyen,Hasta hasta)
 		{
-			returnValue temp = new returnValue(); 
-			try{
-				if (diyetisyen != null&&hasta!=null)
+			returnValue temp = new returnValue();
+			try
+			{
+				foreach (Diyetisyen item in GetKullanicilar(kullaniciTipleri.Diyetisyen))
 				{
+					if (diyetisyen != item)
+					{
+						if (item.HastalarListesi().Contains(hasta))
+						{
+							item.hastaSevk(hasta);
+						}
+					}
 					diyetisyen.HastaAta(hasta);
 				}
 			}
@@ -120,7 +125,7 @@ namespace Diyetisyen_Application
 				temp.message = e.Message;
 			}
 			return temp;
-		}
+        }
 		public returnValue	RaporOlustur(raporTip tip, string RaporMetni)
 		{
 			returnValue temp = new returnValue();
